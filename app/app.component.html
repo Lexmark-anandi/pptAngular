@@ -1,0 +1,35 @@
+
+
+<div id="mySidenav" class="sidenav" style="white-space: nowrap;">
+  <a href="javascript:void(0)" class="closebtn" (click)="toggleNav()">&times;</a>
+  <div *ngFor="let item of sidebarMenuList; let i = index">
+    <a [routerLink]="[item.path]" href="#" (click)="updateBottomNav(i)">{{item.displayLink}}</a>
+  </div>
+</div>
+
+<div id="main" style="white-space: nowrap">
+  <div class="row main-header">
+    <div class="col col-md-1 col-lg-1 col-sm-1 col-xs-1" style="font-size:30px;cursor:pointer;" (click)="toggleNav()">
+      <div class="navIcon" [class.rotateFront]="blnRotateNavIcon">&#9776;</div>
+    </div>
+    <div class="col col-md-11 col-lg-11 col-sm-11 col-xs-11" style="font-size: 25px;text-align: center; padding-top: 5px;">Power Point Web</div>
+  </div>
+
+
+
+<main class="well cover-page" style="white-space: nowrap">
+  <section>
+    <router-outlet></router-outlet>
+  </section>
+</main>
+
+<div style="text-align: center;">
+  <a [routerLink]="[previousSlide]" href="#" *ngIf="currentSlideNum !== 1" class="slider-navigation" title="Previous" (click)="showPreviousSlide()">
+    <span class="glyphicon glyphicon-triangle-left"></span>
+  </a>
+  <a [routerLink]="[nextSlide]" href="#" class="slider-navigation" *ngIf="currentSlideNum !== totalSlides" title="Next" (click)="showNextSlide()">
+    <span class="glyphicon glyphicon-triangle-right"></span>
+  </a>
+  <p><i>showing slides {{currentSlideNum}} of {{totalSlides}}</i></p>
+</div>
+</div>
