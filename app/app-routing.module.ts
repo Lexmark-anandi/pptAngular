@@ -3,6 +3,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {SlideOneComponent} from "./slide1.component";
 import {SlideTwoComponent} from "./slide2.component";
 import {SlideThreeComponent} from "./slide3.component";
+import {CanActivateAuthGuard} from "./can-activate.service";
 
 const routes : Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'slide1'},

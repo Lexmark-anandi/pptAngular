@@ -8,23 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var router_1 = require("@angular/router");
 var core_1 = require("@angular/core");
-var router_animation_1 = require("./router.animation");
-var SlideTwoComponent = (function () {
-    function SlideTwoComponent() {
+var CanActivateAuthGuard = (function () {
+    function CanActivateAuthGuard(_router) {
+        this._router = _router;
     }
-    SlideTwoComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'slide-two',
-            templateUrl: 'slide2.component.html',
-            styles: [":host{\n  color: green;\n  background-color: #fff;\n  overflow-y:hidden;\n  height:78vh;\n  font-size: 1.5em;\n}"],
-            animations: [router_animation_1.routerTransition()],
-            host: { '[@routerTransition]': '' }
-        }), 
-        __metadata('design:paramtypes', [])
-    ], SlideTwoComponent);
-    return SlideTwoComponent;
+    CanActivateAuthGuard.prototype.canActivate = function (next, state) {
+        this._router.navigate(['/slide3']);
+        return true;
+    };
+    CanActivateAuthGuard = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [router_1.Router])
+    ], CanActivateAuthGuard);
+    return CanActivateAuthGuard;
 }());
-exports.SlideTwoComponent = SlideTwoComponent;
-//# sourceMappingURL=slide2.component.js.map
+exports.CanActivateAuthGuard = CanActivateAuthGuard;
+//# sourceMappingURL=can-activate.service.js.map

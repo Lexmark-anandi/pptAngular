@@ -13,13 +13,16 @@ var platform_browser_1 = require('@angular/platform-browser');
 var app_component_1 = require('./app.component');
 var app_routing_module_1 = require("./app-routing.module");
 var forms_1 = require("@angular/forms");
+var can_activate_service_1 = require("./can-activate.service");
+var routeCompHolder_component_1 = require("./routeCompHolder.component");
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, app_routing_module_1.AppRoutingModule],
-            declarations: [app_component_1.AppComponent, app_routing_module_1.routableComponents],
+            declarations: [app_component_1.AppComponent, app_routing_module_1.routableComponents, routeCompHolder_component_1.RouteCompHolderComponent],
+            providers: [can_activate_service_1.CanActivateAuthGuard],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

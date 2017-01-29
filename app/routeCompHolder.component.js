@@ -9,22 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_animation_1 = require("./router.animation");
-var SlideTwoComponent = (function () {
-    function SlideTwoComponent() {
+var RouteCompHolderComponent = (function () {
+    function RouteCompHolderComponent() {
     }
-    SlideTwoComponent = __decorate([
+    RouteCompHolderComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'slide-two',
-            templateUrl: 'slide2.component.html',
-            styles: [":host{\n  color: green;\n  background-color: #fff;\n  overflow-y:hidden;\n  height:78vh;\n  font-size: 1.5em;\n}"],
-            animations: [router_animation_1.routerTransition()],
-            host: { '[@routerTransition]': '' }
+            selector: 'router-components',
+            templateUrl: 'routeCompHolder.component.html',
         }), 
         __metadata('design:paramtypes', [])
-    ], SlideTwoComponent);
-    return SlideTwoComponent;
+    ], RouteCompHolderComponent);
+    return RouteCompHolderComponent;
 }());
-exports.SlideTwoComponent = SlideTwoComponent;
-//# sourceMappingURL=slide2.component.js.map
+exports.RouteCompHolderComponent = RouteCompHolderComponent;
+//# sourceMappingURL=routeCompHolder.component.js.map
