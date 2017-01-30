@@ -10,10 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var app_routing_module_1 = require("./app-routing.module");
+var windowRef_1 = require("./windowRef");
 var SLIDE_ROUTE_PREFIX = "/slide";
 var SLIDES = ['Slide 1', 'Slide 2', 'Slide 3'];
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(_windowRef) {
+        this._windowRef = _windowRef;
         this.blnRotateNavIcon = false;
         this.currentSlideNum = 1;
         this.totalSlides = app_routing_module_1.NO_OF_SLIDE;
@@ -21,6 +23,7 @@ var AppComponent = (function () {
         this.previousSlide = SLIDE_ROUTE_PREFIX + this.currentSlideNum;
         this.sidebarMenuList = [];
         this.blnNavSideMenuOpen = false;
+        this.blnFullScreenMode = false;
     }
     AppComponent.prototype.showNextSlide = function () {
         if (this.currentSlideNum !== this.totalSlides) {
@@ -71,14 +74,49 @@ var AppComponent = (function () {
             });
         }
     };
+    AppComponent.prototype.gotoFullScreenMode = function () {
+        //definne document object
+        var _document = this._windowRef.nativeWindow.document;
+        if (_document.documentElement.requestFullscreen) {
+            _document.documentElement.requestFullscreen();
+        }
+        else if (_document.documentElement.mozRequestFullScreen) {
+            _document.documentElement.mozRequestFullScreen();
+        }
+        else if (_document.documentElement.webkitRequestFullScreen) {
+            _document.documentElement.webkitRequestFullScreen();
+        }
+        else if (_document.documentElement.msRequestFullscreen) {
+            _document.documentElement.msRequestFullscreen();
+        }
+        this.blnFullScreenMode = true;
+    };
+    AppComponent.prototype.exitFullScreenMode = function () {
+        //define document
+        var _document = this._windowRef.nativeWindow.document;
+        if (_document.exitFullscreen) {
+            _document.exitFullscreen();
+        }
+        else if (_document.mozCancelFullScreen) {
+            _document.mozCancelFullScreen();
+        }
+        else if (_document.webkitCancelFullScreen) {
+            _document.webkitCancelFullScreen();
+        }
+        else if (_document.msExitFullscreen) {
+            _document.msExitFullscreen();
+        }
+        this.blnFullScreenMode = false;
+    };
     AppComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'my-app',
             templateUrl: 'app.component.html',
-            styleUrls: ['app.component.css']
+            styleUrls: ['app.component.css'],
+            providers: [windowRef_1.WindowRef]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [windowRef_1.WindowRef])
     ], AppComponent);
     return AppComponent;
 }());

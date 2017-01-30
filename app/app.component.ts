@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NO_OF_SLIDE} from "./app-routing.module";
+import {WindowRef} from "./windowRef";
 
 const SLIDE_ROUTE_PREFIX = "/slide";
 const SLIDES = ['Slide 1', 'Slide 2', 'Slide 3'];
@@ -8,7 +9,8 @@ const SLIDES = ['Slide 1', 'Slide 2', 'Slide 3'];
   moduleId: module.id,
   selector: 'my-app',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css']
+  styleUrls: ['app.component.css'],
+  providers: [WindowRef]
 })
 export class AppComponent  implements OnInit{
   blnRotateNavIcon = false;
@@ -18,6 +20,9 @@ export class AppComponent  implements OnInit{
   previousSlide = SLIDE_ROUTE_PREFIX + this.currentSlideNum;
   sidebarMenuList : any[] = [];
   blnNavSideMenuOpen = false;
+  blnFullScreenMode = false;
+
+  constructor(private _windowRef : WindowRef){}
 
   showNextSlide(){
     if(this.currentSlideNum !== this.totalSlides){
@@ -72,5 +77,42 @@ export class AppComponent  implements OnInit{
         displayLink: SLIDES[count]
       })
     }
+  }
+
+  gotoFullScreenMode():void{
+    //definne document object
+    let _document = this._windowRef.nativeWindow.document;
+
+    if(_document.documentElement.requestFullscreen){
+      _document.documentElement.requestFullscreen();
+    }
+    else if(_document.documentElement.mozRequestFullScreen){
+      _document.documentElement.mozRequestFullScreen();
+    }
+    else if(_document.documentElement.webkitRequestFullScreen){
+      _document.documentElement.webkitRequestFullScreen();
+    }
+    else if(_document.documentElement.msRequestFullscreen){
+      _document.documentElement.msRequestFullscreen();
+    }
+    this.blnFullScreenMode = true;
+  }
+
+  exitFullScreenMode():void{
+    //define document
+    let _document = this._windowRef.nativeWindow.document;
+    if (_document.exitFullscreen) {
+      _document.exitFullscreen();
+    }
+    else if (_document.mozCancelFullScreen) {
+      _document.mozCancelFullScreen();
+    }
+    else if (_document.webkitCancelFullScreen) {
+      _document.webkitCancelFullScreen();
+    }
+    else if (_document.msExitFullscreen) {
+      _document.msExitFullscreen();
+    }
+    this.blnFullScreenMode = false;
   }
 }

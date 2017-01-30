@@ -17,13 +17,28 @@
     <router-components></router-components>
   </main>
 
-  <div style="text-align: center;">
-    <a [routerLink]="[previousSlide]" href="#" *ngIf="currentSlideNum !== 1" class="slider-navigation" title="Previous" (click)="showPreviousSlide()">
-      <span class="glyphicon glyphicon-triangle-left"></span>
-    </a>
-    <a [routerLink]="[nextSlide]" href="#" class="slider-navigation" *ngIf="currentSlideNum !== totalSlides" title="Next" (click)="showNextSlide()">
-      <span class="glyphicon glyphicon-triangle-right"></span>
-    </a>
-    <p><i>showing slides {{currentSlideNum}} of {{totalSlides}}</i></p>
+  <!--Navigation links-->
+  <div class="row">
+    <div class="col col-md-2 col-lg-2"></div>
+    <div class="col col-md-8 col-lg-8">
+      <div style="text-align: center;">
+        <a [routerLink]="[previousSlide]" href="#" *ngIf="currentSlideNum !== 1" class="slider-navigation" title="Previous" (click)="showPreviousSlide()">
+          <span class="glyphicon glyphicon-triangle-left"></span>
+        </a>
+        <a [routerLink]="[nextSlide]" href="#" class="slider-navigation" *ngIf="currentSlideNum !== totalSlides" title="Next" (click)="showNextSlide()">
+          <span class="glyphicon glyphicon-triangle-right"></span>
+        </a>
+        <p><i>showing slides {{currentSlideNum}} of {{totalSlides}}</i></p>
+
+      </div>
+    </div>
+    <div class="col col-md-2 col-lg-2" style="text-align: right;zoom: 2;">
+      <a *ngIf="!blnFullScreenMode" href="javascript:void(0)" title="Full Screen" (click)="gotoFullScreenMode()">
+        <span class="glyphicon glyphicon-resize-full"></span>
+      </a>
+      <a *ngIf="blnFullScreenMode" href="javascript:void(0)" title="Exit Full Screen" (click)="exitFullScreenMode()">
+        <span class="glyphicon glyphicon-resize-small"></span>
+      </a>
+    </div>
   </div>
 </div>
