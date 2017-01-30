@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, HostListener} from '@angular/core';
 import {NO_OF_SLIDE} from "./app-routing.module";
 import {WindowRef} from "./windowRef";
+import {Router} from "@angular/router";
 
 const SLIDE_ROUTE_PREFIX = "/slide";
 const SLIDES = ['Slide 1', 'Slide 2', 'Slide 3'];
@@ -22,7 +23,8 @@ export class AppComponent  implements OnInit{
   blnNavSideMenuOpen = false;
   blnFullScreenMode = false;
 
-  constructor(private _windowRef : WindowRef){}
+  constructor(private _windowRef : WindowRef,
+              private _router :  Router){}
 
   showNextSlide(){
     if(this.currentSlideNum !== this.totalSlides){
@@ -114,5 +116,25 @@ export class AppComponent  implements OnInit{
       _document.msExitFullscreen();
     }
     this.blnFullScreenMode = false;
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  keyBoardInput(event:any):void{
+    if(this.blnFullScreenMode){
+      //front navigation on 'rightarrow',''downarrow' and 'spacebar
+      if(event.keyCode == 39 || event.keyCode == 40 || event.keyCode == 32){
+        this._router.navigate([this.nextSlide]);
+        this.showNextSlide();
+      }
+      //back navigation on 'leftarrow' and 'uparrow
+      else if(event.keyCode == 37 || event.keyCode == 38){
+        this._router.navigate([this.previousSlide]);
+        this.showPreviousSlide();
+      }
+    }
+    //on press of F11 key, toggle blnFullScreenMode
+    if(event.keyCode == 122){
+      this.blnFullScreenMode = !this.blnFullScreenMode;
+    }
   }
 }

@@ -11,11 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var app_routing_module_1 = require("./app-routing.module");
 var windowRef_1 = require("./windowRef");
+var router_1 = require("@angular/router");
 var SLIDE_ROUTE_PREFIX = "/slide";
 var SLIDES = ['Slide 1', 'Slide 2', 'Slide 3'];
 var AppComponent = (function () {
-    function AppComponent(_windowRef) {
+    function AppComponent(_windowRef, _router) {
         this._windowRef = _windowRef;
+        this._router = _router;
         this.blnRotateNavIcon = false;
         this.currentSlideNum = 1;
         this.totalSlides = app_routing_module_1.NO_OF_SLIDE;
@@ -108,6 +110,29 @@ var AppComponent = (function () {
         }
         this.blnFullScreenMode = false;
     };
+    AppComponent.prototype.keyBoardInput = function (event) {
+        if (this.blnFullScreenMode) {
+            //front navigation on 'rightarrow',''downarrow' and 'spacebar
+            if (event.keyCode == 39 || event.keyCode == 40 || event.keyCode == 32) {
+                this._router.navigate([this.nextSlide]);
+                this.showNextSlide();
+            }
+            else if (event.keyCode == 37 || event.keyCode == 38) {
+                this._router.navigate([this.previousSlide]);
+                this.showPreviousSlide();
+            }
+        }
+        //on press of F11 key, toggle blnFullScreenMode
+        if (event.keyCode == 122) {
+            this.blnFullScreenMode = !this.blnFullScreenMode;
+        }
+    };
+    __decorate([
+        core_1.HostListener('window:keyup', ['$event']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], AppComponent.prototype, "keyBoardInput", null);
     AppComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
@@ -116,7 +141,7 @@ var AppComponent = (function () {
             styleUrls: ['app.component.css'],
             providers: [windowRef_1.WindowRef]
         }), 
-        __metadata('design:paramtypes', [windowRef_1.WindowRef])
+        __metadata('design:paramtypes', [windowRef_1.WindowRef, router_1.Router])
     ], AppComponent);
     return AppComponent;
 }());
